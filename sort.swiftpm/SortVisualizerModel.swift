@@ -26,7 +26,7 @@ class SortVisualizerViewModel: ObservableObject {
     
     private func startSort() {
         var index = 0
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.35, repeats: true) { timer in
             if index >= self.values.count {
                 timer.invalidate()
                 self.sorting = false
