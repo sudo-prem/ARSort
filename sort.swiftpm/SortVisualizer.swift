@@ -10,7 +10,7 @@ struct SortVisualiser: View {
     
     var isDataSorted: Bool {
         for i in 0..<data.count-1 {
-            if data[i] > data[i+1] {
+            if data[i] != (i+1) {
                 return false
             }
         }
