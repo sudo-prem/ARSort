@@ -3,6 +3,8 @@ import Charts
 
 struct NLogNChart: View {
     var title: String
+    var x: String
+    var y: String
     private let chartData = ChartData.NLogNChartData
     
     var body: some View {
@@ -16,8 +18,8 @@ struct NLogNChart: View {
                     .interpolationMethod(.cardinal)
                 }
                 .padding(.horizontal, 16)
-                .chartXAxisLabel("Size")
-                .chartYAxisLabel("Time")
+                .chartXAxisLabel("\(x)")
+                .chartYAxisLabel("\(y)")
                 .chartYScale(domain: [0, 100])
                 .chartXScale(domain: [0, 30])
             }
@@ -34,6 +36,5 @@ struct NLogNChart: View {
                 }
             }
         }
-        .navigationTitle("Line Chart")
     }
 }

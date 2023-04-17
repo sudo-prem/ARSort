@@ -7,7 +7,7 @@ struct BarGraphView: View {
     var body: some View {
         HStack(spacing: 2) {
             ForEach(data, id: \.self) { value in
-                BarView(value: value, maxValue: maxValue, barColor: .blue)
+                BarView(value: value, maxValue: maxValue, barColor: .pink)
             }
         }
     }

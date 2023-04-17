@@ -3,6 +3,8 @@ import Charts
 
 struct NChart: View {
     var title: String
+    var x: String
+    var y: String
     private let chartData = ChartData.NChartData
     
     var body: some View {
@@ -16,8 +18,8 @@ struct NChart: View {
                     .interpolationMethod(.cardinal)
                 }
                 .padding(.horizontal, 16)
-                .chartXAxisLabel("Size")
-                .chartYAxisLabel("Time")
+                .chartXAxisLabel("\(x)")
+                .chartYAxisLabel("\(y)")
                 .chartYScale(domain: [0, 100])
                 .chartXScale(domain: [0, 30])
             }
@@ -34,7 +36,6 @@ struct NChart: View {
                 }
             }
         }
-        .navigationTitle("Line Chart")
     }
 }
 

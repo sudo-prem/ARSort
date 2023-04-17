@@ -5,8 +5,9 @@ struct SortVisualizer: View {
     @State var selectedAlgorithm = "Insertion Sort"
     @State var isAnimating = false
     @State var isSortingComplete = false
+    @State var isCardPresented = false
     
-    let sortingAlgorithms = ["Insertion Sort", "Bubble Sort", "Selection Sort", "Merge Sort", "Quick Sort", "Heap Sort"]
+    let sortingAlgorithms = ["Bubble Sort", "Heap Sort", "Insertion Sort", "Merge Sort", "Quick Sort", "Selection Sort"]
     
     var isDataSorted: Bool {
         for i in 0..<data.count-1 {
@@ -20,7 +21,65 @@ struct SortVisualizer: View {
     var body: some View {
         GeometryReader { geo in
             ZStack() {
-                PopupCardView()
+                
+                WelcomeCardView()
+                
+                if isCardPresented {
+                    Button(action: {}) {}
+                        .frame(height: 0)
+                        .sheet(isPresented: $isCardPresented) {
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 20) {
+                                    Group {
+                                        Text("🎓")
+                                            .font(.largeTitle)
+                                            .bold()
+                                        
+                                        Text("Time Complexity")
+                                            .font(.title)
+                                            .bold()
+                                        Text("Time complexity refers to the amount of time required by an algorithm to complete its execution. It is usually measured in terms of the number of operations performed by the algorithm as a function of the size of the input data.")
+                                        
+                                        Text("Space Complexity")
+                                            .font(.title)
+                                            .bold()
+                                        Text("Space complexity refers to the amount of memory required by an algorithm to complete its execution. It is usually measured in terms of the amount of memory used by the algorithm as a function of the size of the input data.")
+                                    }
+                                    Group {
+                                        Text("K-Passes")
+                                            .font(.title)
+                                            .bold()
+                                        Text("K-passes refers to the number of times an algorithm needs to process the input data in order to obtain the k largest or k smallest elements of the array. For example, if an algorithm requires k passes to obtain the k largest elements, it is said to have k-passes.")
+                                        
+                                        Text("Stability")
+                                            .font(.title)
+                                            .bold()
+                                        Text("Stability refers to the property of a sorting algorithm that ensures that the relative order of equal elements in the input data is preserved in the output data. A stable sorting algorithm will maintain the order of equal elements in the input data in the output data.")
+                                        
+                                        Text("Adaptability")
+                                            .font(.title)
+                                            .bold()
+                                        Text("Adaptability refers to the property of a sorting algorithm that allows it to efficiently handle input data that is already partially sorted. An adaptive sorting algorithm will take advantage of the existing order in the input data to reduce the number of comparisons and swaps needed to sort the data.")
+                                    }
+                                    Spacer()
+                                    HStack {
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: { isCardPresented.toggle() }) {
+                                            Text("Close")
+                                                .font(.title3)
+                                                .foregroundColor(.pink)
+                                        }
+                                        .padding(10)
+                                        .font(.system(size: 14))
+                                        .hoverEffect(.highlight)
+                                    }
+                                }
+                                .padding()
+                            }
+                        }
+                }
                 
                 VStack {
                     
@@ -37,9 +96,21 @@ struct SortVisualizer: View {
                     .opacity(isSortingComplete || isAnimating ? 0 : 1)
                     .animation(.easeInOut(duration: 0.35))
                     
-                    InsertionSortView()
-                    
-                    VStack (spacing: 70){
+                    if selectedAlgorithm == "Insertion Sort" {
+                        InsertionSortView()
+                    } else if selectedAlgorithm == "Bubble Sort" {
+                        BubbleSortView()
+                    } else if selectedAlgorithm == "Selection Sort" {
+                        SelectionSortView()
+                    } else if selectedAlgorithm == "Merge Sort" {
+                        MergeSortView()
+                    } else if selectedAlgorithm == "Quick Sort" {
+                        QuickSortView()
+                    } else if selectedAlgorithm == "Heap Sort" {
+                        HeapSortView()
+                    }
+
+                    VStack (spacing: 100) {
                         HStack(spacing: 100) {
                             
                             if isAnimating {
@@ -52,6 +123,7 @@ struct SortVisualizer: View {
                                     Image(systemName: "pause.circle.fill")
                                         .resizable()
                                         .frame(width: 50, height: 50)
+                                        .foregroundColor(.pink)
                                         .disabled(isSortingComplete)
                                         .animation(.easeInOut(duration: 0.35))
                                 })
@@ -75,8 +147,23 @@ struct SortVisualizer: View {
                                             .animation(.easeInOut(duration: 0.35))
                                     })
                                     .transition(.opacity)
+                                    .foregroundColor(.pink)
                                 }
                                 
+                                Spacer()
+                                
+                                Button(action: {
+                                    isCardPresented = true
+                                }, label: {
+                                    Image(systemName: "info.circle.fill")
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                })
+                                .transition(.opacity)
+                                .foregroundColor(.pink)
+                                .disabled(isSortingComplete || isAnimating)
+                                .animation(.easeInOut(duration: 0.35))
+
                                 Spacer()
                                 
                                 Button(action: {
@@ -89,6 +176,7 @@ struct SortVisualizer: View {
                                         .frame(width: 50, height: 50)
                                 })
                                 .opacity(isAnimating ? 0 : 1)
+                                .foregroundColor(.pink)
                                 .disabled(isAnimating)
                                 .animation(.easeInOut(duration: 0.35))
                                 .onAppear {

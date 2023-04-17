@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PopupCardView: View {
+struct WelcomeCardView: View {
     @State private var isCardPresented = true
     
     public var body: some View {
@@ -10,11 +10,12 @@ struct PopupCardView: View {
                 VStack(alignment: .center) {
                     Spacer()
                     Image(systemName: "sparkles")
-                        .font(.system(size: 150))
-                        .foregroundColor(.accentColor)
+                        .font(.system(size: 77))
+                        .foregroundColor(.pink)
                         .padding(30)
                     Text("Welcome!")
-                        .font(.system(size: 40))
+                        .font(.system(size: 35))
+                        .foregroundColor(.pink)
                         .bold()
                         .padding(30)
                     (
@@ -28,7 +29,8 @@ struct PopupCardView: View {
                     HStack {
                         Button(action: { isCardPresented.toggle() }) {
                             Text("Get Started")
-                                .font(.title)
+                                .font(.title2)
+                                .foregroundColor(.pink)
                         }
                         .padding(10)
                         .font(.system(size: 14))

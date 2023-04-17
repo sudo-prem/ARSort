@@ -1,16 +1,16 @@
 import SwiftUI
 import Charts
 
-struct NSquareChart: View {
+struct ConstantChart: View {
     var title: String
     var x: String
     var y: String
-    private let chartData = ChartData.NSquareChartData
+    private let chartData = ChartData.ConstantChartData
     
     var body: some View {
         VStack {
             GroupBox("\(title)") {
-                Chart(chartData) { point in
+                Chart(chartData) { point in  
                     LineMark(
                         x: .value("Size", point.size),
                         y: .value("Time", point.time)
@@ -21,7 +21,7 @@ struct NSquareChart: View {
                 .chartXAxisLabel("\(x)")
                 .chartYAxisLabel("\(y)")
                 .chartYScale(domain: [0, 100])
-                .chartXScale(domain: [0, 15])
+                .chartXScale(domain: [0, 30])
             }
             .chartXAxis {
                 AxisMarks {
